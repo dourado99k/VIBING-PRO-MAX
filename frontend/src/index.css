@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+@config '../tailwind.config.js';
+
+@layer base {
+  body {
+    @apply bg-sand-50 text-dark font-sans antialiased min-h-screen;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8;
+  }
+}
