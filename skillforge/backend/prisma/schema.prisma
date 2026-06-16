@@ -1,0 +1,229 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ORG_ADMIN
+  USER
+}
+
+enum Plan {
+  FREE
+  PREMIUM
+}
+
+enum ContentType {
+  PDF
+  IMAGE
+}
+
+enum MissionDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  BOSS
+}
+
+enum MissionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum SkillCategory {
+  FRONTEND
+  BACKEND
+  DATABASE
+  SOFT_SKILLS
+  DEVOPS
+  CUSTOM
+}
+
+model Organization {
+  id                   String   @id @default(cuid())
+  name                 String
+  slug                 String   @unique
+  description          String?
+  industry             String?
+  logoUrl              String?
+  gamificationEnabled  Boolean  @default(true)
+  welcomeMessage       String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  users     User[]
+  contents  Content[]
+  missions  Mission[]
+  skills    Skill[]
+  badges    Badge[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  password       String
+  name           String
+  bio            String?
+  avatar         String?
+  role           Role     @default(USER)
+  plan           Plan     @default(FREE)
+  xp             Int      @default(0)
+  level          Int      @default(1)
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  missions     Mission[]
+  favorites    MissionFavorite[]
+  userSkills   UserSkill[]
+  userBadges   UserBadge[]
+  streak       Streak?
+  ranking      Ranking?
+  contents     Content[] @relation("ContentAuthor")
+
+  @@map("users")
+}
+
+model Content {
+  id             String      @id @default(cuid())
+  title          String
+  description    String?
+  type           ContentType
+  fileUrl        String
+  fileName       String?
+  mimeType       String?
+  order          Int         @default(0)
+  isPublished    Boolean     @default(false)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdById    String?
+  createdBy      User?       @relation("ContentAuthor", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@map("contents")
+}
+
+model Mission {
+  id             String            @id @default(cuid())
+  title          String
+  description    String
+  difficulty     MissionDifficulty @default(EASY)
+  xpReward       Int               @default(50)
+  category       String
+  status         MissionStatus     @default(PENDING)
+  deadline       DateTime?
+  isBoss         Boolean           @default(false)
+  userId         String
+  organizationId String
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization   Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  favorites      MissionFavorite[]
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@map("missions")
+}
+
+model MissionFavorite {
+  id        String   @id @default(cuid())
+  userId    String
+  missionId String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mission   Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, missionId])
+  @@map("mission_favorites")
+}
+
+model Skill {
+  id              String        @id @default(cuid())
+  name            String
+  description     String
+  category        SkillCategory @default(CUSTOM)
+  requiredLevel   Int           @default(1)
+  xpRequired      Int           @default(100)
+  parentId        String?
+  parent          Skill?        @relation("SkillTree", fields: [parentId], references: [id])
+  children        Skill[]       @relation("SkillTree")
+  positionX       Int           @default(0)
+  positionY       Int           @default(0)
+  organizationId  String
+  organization    Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userSkills      UserSkill[]
+  createdAt       DateTime      @default(now())
+
+  @@map("skills")
+}
+
+model Badge {
+  id             String      @id @default(cuid())
+  name           String
+  description    String
+  icon           String      @default("award")
+  xpBonus        Int         @default(0)
+  isPremium      Boolean     @default(false)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userBadges     UserBadge[]
+  createdAt      DateTime    @default(now())
+
+  @@unique([organizationId, name])
+  @@map("badges")
+}
+
+model UserSkill {
+  id         String   @id @default(cuid())
+  userId     String
+  skillId    String
+  unlocked   Boolean  @default(false)
+  unlockedAt DateTime?
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill      Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
+  @@map("user_skills")
+}
+
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  badgeId  String
+  earnedAt DateTime @default(now())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge    Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
+
+model Ranking {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  position  Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+
+  @@map("rankings")
+}
+
+model Streak {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  currentStreak Int      @default(0)
+  longestStreak Int      @default(0)
+  lastStudyDate DateTime?
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("streaks")
+}

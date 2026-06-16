@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Tema dark corporativo (tokens em CSS vars p/ evoluir no futuro) */
+:root {
+  --bg: 12 14 20;
+  --panel: 17 20 28;
+  --panel-2: 21 25 35;
+  --border: 41 49 64;
+  --text: 226 232 240;
+  --muted: 148 163 184;
+  --brand: 124 58 237;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+/* FullCalendar (dark) */
+.fc-dark .fc {
+  --fc-page-bg-color: rgb(var(--panel));
+  --fc-neutral-bg-color: rgb(var(--panel-2));
+  --fc-border-color: rgb(var(--border));
+  --fc-today-bg-color: rgba(124, 58, 237, 0.10);
+  --fc-list-event-hover-bg-color: rgba(255, 255, 255, 0.04);
+  --fc-small-font-size: 0.82em;
+  color: rgb(var(--text));
+}
+.fc-dark .fc .fc-toolbar-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.fc-dark .fc .fc-button {
+  background: rgb(var(--panel-2));
+  border: 1px solid rgb(var(--border));
+  color: rgb(var(--text));
+  border-radius: 12px;
+}
+.fc-dark .fc .fc-button:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.fc-dark .fc .fc-button-primary:not(:disabled).fc-button-active {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: rgba(124, 58, 237, 0.35);
+}
+.fc-dark .fc .fc-daygrid-day-number,
+.fc-dark .fc .fc-col-header-cell-cushion {
+  color: rgb(var(--muted));
+}
+

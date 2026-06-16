@@ -1,33 +1,19 @@
-# ArenaSand — Locação de Quadras de Areia
+# VIBING PRO MAX
 
-Sistema completo de gerenciamento e locação de quadras de areia.
+Repositório com todos os projetos da pasta `Projects`.
 
-## Stack
+## Projetos incluídos
 
-- **Frontend:** React + Vite + Tailwind CSS + Zustand + Axios
-- **Backend:** Node.js + Express + Prisma + JWT + bcrypt
+| Pasta | Descrição |
+|-------|-----------|
+| `gestao-demandas-saas` | Gestão de demandas SaaS |
+| `hotel-gestao` | Sistema de gestão hoteleira |
+| `nuova-donna-site` | Site Nuova Donna |
+| `quadras-areia` | ArenaSand — locação de quadras de areia |
+| `skillforge` | SkillForge — plataforma educacional gamificada |
 
-## Como rodar
+Cada pasta é um projeto independente com seu próprio `package.json` e instruções no README local (quando disponível).
 
-```bash
-# Backend
-cd backend
-npm install
-cp .env.example .env   # se ainda não tiver .env
-npx prisma db push
-npm run db:seed
-npm run dev
+## Como usar
 
-# Frontend (outro terminal)
-cd frontend
-npm install
-npm run dev
-```
-
-- API: http://localhost:3001
-- App: http://localhost:5173
-
-## Credenciais admin (seed)
-
-- **E-mail:** admin@quadras.com
-- **Senha:** admin123
+Entre na pasta do projeto desejado e siga o README ou rode `npm install` + `npm run dev` conforme a estrutura de cada um.

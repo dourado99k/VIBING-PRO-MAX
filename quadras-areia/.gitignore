@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build
+frontend/dist/
+
+# Environment
+.env
+.env.local
+*.local
+
+# Database
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / Editor
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Uploads (runtime)
+backend/uploads/*
+!backend/uploads/.gitkeep
