@@ -28,3 +28,4 @@ npm-debug.log*
 # Uploads (runtime)
 backend/uploads/*
 !backend/uploads/.gitkeep
+FEEDBACKS.csv.zip

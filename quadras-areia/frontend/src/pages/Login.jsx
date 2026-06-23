@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { LogIn } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import BrandLogo from '../components/BrandLogo';
 import { useAuthStore } from '../store/useAuthStore';
 
 export default function Login() {
@@ -18,7 +18,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      toast.success('Login realizado com sucesso!');
+      toast.success('Bem-vindo ao Quintal 127!');
       navigate(data.user.role === 'ADMIN' ? '/admin' : '/cliente');
     } catch (err) {
       toast.error(err.message);
@@ -26,14 +26,16 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-sand-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-sand-50">
       <Navbar />
       <div className="flex items-center justify-center px-4 py-16">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md border-lime-200">
           <div className="mb-6 text-center">
-            <LogIn className="mx-auto mb-2 text-primary-600" size={40} />
-            <h1 className="text-2xl font-bold text-dark">Entrar</h1>
-            <p className="mt-1 text-sm text-muted">
+            <div className="mb-4 flex justify-center">
+              <BrandLogo size="lg" link={false} />
+            </div>
+            <h1 className="text-2xl font-bold text-primary-900">Entrar</h1>
+            <p className="mt-2 text-xs text-muted">
               Admin: admin@quadras.com / admin123
             </p>
           </div>
@@ -58,7 +60,7 @@ export default function Login() {
           </form>
           <p className="mt-6 text-center text-sm text-muted">
             Não tem conta?{' '}
-            <Link to="/cadastro" className="font-medium text-primary-600 hover:underline">
+            <Link to="/cadastro" className="font-semibold text-primary-600 hover:text-lime-600">
               Cadastre-se
             </Link>
           </p>

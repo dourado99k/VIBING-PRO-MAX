@@ -31,8 +31,8 @@ export default function SidebarAdmin() {
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-muted hover:bg-sand-100 hover:text-dark'
+                  ? 'bg-lime-100 text-primary-800 shadow-sm'
+                  : 'text-muted hover:bg-primary-50 hover:text-primary-800'
               }`
             }
           >
@@ -54,8 +54,8 @@ export function AdminMobileNav() {
           to={to}
           end={end}
           className={({ isActive }) =>
-            `whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium ${
-              isActive ? 'bg-primary-600 text-white' : 'bg-sand-100 text-muted'
+            `whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-semibold ${
+              isActive ? 'bg-lime-400 text-primary-900' : 'bg-primary-100 text-primary-700'
             }`
           }
         >

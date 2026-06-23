@@ -8,17 +8,17 @@ export default function Button({
   ...props
 }) {
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+    'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
 
   const variants = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 shadow-sm',
-    light: 'bg-white text-primary-700 hover:bg-sand-100 shadow-sm',
-    secondary: 'bg-sand-200 text-dark hover:bg-sand-300',
-    success: 'bg-success text-white hover:bg-success-dark',
+    primary: 'bg-lime-400 text-primary-900 hover:bg-lime-300 shadow-glow hover:shadow-lg',
+    light: 'bg-white text-primary-700 hover:bg-lime-50 shadow-sm',
+    secondary: 'bg-primary-100 text-primary-800 hover:bg-primary-200',
+    success: 'bg-lime-500 text-primary-900 hover:bg-lime-400',
     danger: 'bg-danger text-white hover:bg-danger-dark',
-    ghost: 'bg-transparent text-dark hover:bg-sand-100 border border-sand-200',
-    outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 bg-transparent',
-    outlineLight: 'border-2 border-white text-white hover:bg-white/10 bg-transparent',
+    ghost: 'bg-transparent text-primary-700 hover:bg-primary-50 border border-primary-200',
+    outline: 'border-2 border-lime-400 text-lime-600 hover:bg-lime-50 bg-transparent',
+    outlineLight: 'border-2 border-lime-400 text-lime-300 hover:bg-lime-400/10 bg-transparent',
   };
 
   const sizes = {
@@ -34,7 +34,7 @@ export default function Button({
       {...props}
     >
       {loading && (
-        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+        <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-900/30 border-t-primary-900" />
       )}
       {children}
     </button>

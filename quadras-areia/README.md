@@ -1,6 +1,8 @@
-# ArenaSand — Locação de Quadras de Areia
+# Quintal 127 — Arena & Choperia
 
-Sistema completo de gerenciamento e locação de quadras de areia.
+Sistema de reserva e locação de quadras de areia para o **Quintal 127**.
+
+**Endereço:** Rua Laureano 127, Campeche — Florianópolis, SC
 
 ## Stack
 
@@ -13,7 +15,7 @@ Sistema completo de gerenciamento e locação de quadras de areia.
 # Backend
 cd backend
 npm install
-cp .env.example .env   # se ainda não tiver .env
+cp .env.example .env
 npx prisma db push
 npm run db:seed
 npm run dev

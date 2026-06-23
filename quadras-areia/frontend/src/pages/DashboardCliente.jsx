@@ -35,7 +35,7 @@ export default function DashboardCliente() {
       <div className="page-container">
         <PageHeader
           title="Olá! Pronto para jogar?"
-          subtitle="Reserve sua quadra de areia em poucos passos"
+          subtitle="Reserve sua quadra e venha jogar"
           action={
             <Link to="/quadras">
               <Button>Ver quadras</Button>

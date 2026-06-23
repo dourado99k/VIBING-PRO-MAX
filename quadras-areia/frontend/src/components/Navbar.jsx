@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, LogOut, User, LayoutDashboard } from 'lucide-react';
+import { Menu, X, LogOut, User } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '../store/useAuthStore';
 import Button from './Button';
+import BrandLogo from './BrandLogo';
 
 export default function Navbar() {
   const { user, logout, isAdmin } = useAuthStore();
@@ -13,6 +14,8 @@ export default function Navbar() {
     logout();
     navigate('/');
   };
+
+  const homeLink = user ? (isAdmin() ? '/admin' : '/cliente') : '/';
 
   const clienteLinks = [
     { to: '/cliente', label: 'Início' },
@@ -26,13 +29,10 @@ export default function Navbar() {
     : clienteLinks;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link to={user ? (isAdmin() ? '/admin' : '/cliente') : '/'} className="flex items-center gap-2">
-          <LayoutDashboard className="text-primary-600" size={28} />
-          <span className="text-xl font-bold text-dark">
-            Arena<span className="text-primary-600">Sand</span>
-          </span>
+    <header className="sticky top-0 z-40 border-b border-primary-200/60 bg-white/95 shadow-sm backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
+        <Link to={homeLink}>
+          <BrandLogo size="md" showAddress link={false} />
         </Link>
 
         {user && (
@@ -42,14 +42,14 @@ export default function Navbar() {
                 <Link
                   key={l.to}
                   to={l.to}
-                  className="text-sm font-medium text-muted hover:text-primary-600"
+                  className="text-sm font-semibold text-primary-700 transition-colors hover:text-lime-600"
                 >
                   {l.label}
                 </Link>
               ))}
               <div className="flex items-center gap-3 border-l border-sand-200 pl-6">
-                <span className="flex items-center gap-1 text-sm text-dark">
-                  <User size={16} /> {user.name}
+                <span className="flex items-center gap-1 text-sm font-medium text-dark">
+                  <User size={16} className="text-lime-600" /> {user.name}
                 </span>
                 <Button variant="ghost" size="sm" onClick={handleLogout}>
                   <LogOut size={16} /> Sair
@@ -58,7 +58,7 @@ export default function Navbar() {
             </nav>
 
             <button
-              className="rounded-lg p-2 text-dark md:hidden"
+              className="rounded-lg p-2 text-primary-700 md:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -84,7 +84,7 @@ export default function Navbar() {
             <Link
               key={l.to}
               to={l.to}
-              className="block py-2 text-sm font-medium text-dark"
+              className="block py-2 text-sm font-semibold text-primary-700"
               onClick={() => setMobileOpen(false)}
             >
               {l.label}

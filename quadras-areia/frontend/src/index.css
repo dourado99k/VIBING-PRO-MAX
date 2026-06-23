@@ -11,4 +11,8 @@
   .page-container {
     @apply mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8;
   }
+
+  .brand-gradient-text {
+    @apply bg-gradient-to-r from-lime-300 to-lime-400 bg-clip-text text-transparent;
+  }
 }

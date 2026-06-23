@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { UserPlus } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import BrandLogo from '../components/BrandLogo';
 import { useAuthStore } from '../store/useAuthStore';
 
 export default function Register() {
@@ -27,7 +27,7 @@ export default function Register() {
     e.preventDefault();
     try {
       await register(form);
-      toast.success('Cadastro realizado com sucesso!');
+      toast.success('Bem-vindo ao Quintal 127!');
       navigate('/cliente');
     } catch (err) {
       toast.error(err.message);
@@ -35,13 +35,18 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-sand-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-sand-50">
       <Navbar />
       <div className="flex items-center justify-center px-4 py-10">
-        <Card className="w-full max-w-lg">
+        <Card className="w-full max-w-lg border-lime-200">
           <div className="mb-6 text-center">
-            <UserPlus className="mx-auto mb-2 text-primary-600" size={40} />
-            <h1 className="text-2xl font-bold text-dark">Criar conta</h1>
+            <div className="mb-4 flex justify-center">
+              <BrandLogo size="lg" link={false} />
+            </div>
+            <h1 className="text-2xl font-bold text-primary-900">Criar conta</h1>
+            <p className="mt-1 text-sm text-muted">
+              Reserve quadras no Quintal 127
+            </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
             <Input label="Nome completo" name="name" value={form.name} onChange={handleChange} required className="sm:col-span-2" />
@@ -59,7 +64,7 @@ export default function Register() {
           </form>
           <p className="mt-4 text-center text-sm text-muted">
             Já tem conta?{' '}
-            <Link to="/login" className="font-medium text-primary-600 hover:underline">
+            <Link to="/login" className="font-semibold text-primary-600 hover:text-lime-600">
               Entrar
             </Link>
           </p>
