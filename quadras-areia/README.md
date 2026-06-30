@@ -33,3 +33,8 @@ npm run dev
 
 - **E-mail:** admin@quadras.com
 - **Senha:** admin123
+
+## Apresentação
+
+- **PDF (10 slides):** [Quintal127_Apresentacao_Sistema.pdf](./Quintal127_Apresentacao_Sistema.pdf)
+- Para regenerar: `python3 scripts/gerar_apresentacao_quintal127_pdf.py`
